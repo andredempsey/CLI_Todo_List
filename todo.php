@@ -27,14 +27,19 @@ do {
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
-    $input = trim(fgets(STDIN));
+    $input = strtoupper(trim(fgets(STDIN)));
 
     // Check for actionable input
     if ($input == 'N') {
         // Ask for entry
         echo 'Enter item: ';
         // Add entry to list array
+        if(count($items)==0) {     //check array count and ensure first item is indexed at 1
+            $items[1] = trim(fgets(STDIN));  
+        } else {
+        
         $items[] = trim(fgets(STDIN));
+        }
     } elseif ($input == 'R') {
         // Remove which item?
         echo 'Enter item number to remove: ';
