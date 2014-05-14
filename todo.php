@@ -47,6 +47,9 @@ do {
         $key = trim(fgets(STDIN));
         // Remove from array
         unset($items[$key]);
+        $items=array_values($items);
+        array_unshift($items,"");
+        unset($items[0]);
     }
 // Exit when input is (Q)uit
 } while ($input != 'Q');
