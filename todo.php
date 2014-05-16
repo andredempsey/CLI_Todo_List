@@ -6,30 +6,53 @@
 //Name:  Andre Dempsey
 //Codeup Baddies
 
-// Scope:
-// 1. Fix the todo list to allow lowercase letters
-// 2. Fix the display to start with '1'
+//add functions and refactor
+function list_items($list)
+{
+    // Return string of list items separated by newlines.
+    // Should be listed [KEY] Value like this:
+    // [1] TODO item 1
+    // [2] TODO item 2 - blah
+    // DO NOT USE ECHO, USE RETURN
+    // Iterate through list items
+    // Display each item and a newline
+    $list_output='';
+    foreach ($list as $key => $listitem) 
+    {
+        $list_output = $list_output . "[{$key}] {$listitem}\n";
+    }
+    return $list_output;
+}
 
-
+function get_input($upper = FALSE) 
+// Get STDIN, strip whitespace and newlines, 
+// and convert to uppercase if $upper is true
+{
+    // Return filtered STDIN input
+    if ($upper) 
+    {
+        return strtoupper(trim(fgets(STDIN)));
+    }
+    else
+    {
+        return (trim(fgets(STDIN)));
+    }
+}
 // Create array to hold list of todo items
 $items = array();
 
 // The loop!
 do 
 {
-    // Iterate through list items
-    foreach ($items as $key => $item) 
-    {
-        // Display each item and a newline
-        echo "[{$key}] {$item}\n";
-    }
-
+    //display list
+    echo list_items($items);
+    
     // Show the menu options
     echo '(N)ew item, (R)emove item, (Q)uit : ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
-    $input = strtoupper(trim(fgets(STDIN)));
+    $input = get_input(TRUE);
 
     // Check for actionable input
     if ($input == 'N') 
@@ -39,11 +62,11 @@ do
         // Add entry to list array
         if(count($items)==0) //check array count and ensure first item is indexed at 1
         {     
-            $items[1] = trim(fgets(STDIN));  
+            $items[1] = get_input();  
         } 
         else 
         {
-            $items[] = trim(fgets(STDIN));
+            $items[] = get_input();
         }
     } 
     elseif ($input == 'R') 
@@ -51,7 +74,7 @@ do
         // Remove which item?
         echo 'Enter item number to remove: ';
         // Get array key
-        $key = trim(fgets(STDIN));
+        $key = get_input();
         // Remove from array
         unset($items[$key]);
         $items=array_values($items);
