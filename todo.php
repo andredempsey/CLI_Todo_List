@@ -15,9 +15,11 @@
 $items = array();
 
 // The loop!
-do {
+do 
+{
     // Iterate through list items
-    foreach ($items as $key => $item) {
+    foreach ($items as $key => $item) 
+    {
         // Display each item and a newline
         echo "[{$key}] {$item}\n";
     }
@@ -30,17 +32,22 @@ do {
     $input = strtoupper(trim(fgets(STDIN)));
 
     // Check for actionable input
-    if ($input == 'N') {
+    if ($input == 'N') 
+    {
         // Ask for entry
         echo 'Enter item: ';
         // Add entry to list array
-        if(count($items)==0) {     //check array count and ensure first item is indexed at 1
+        if(count($items)==0) //check array count and ensure first item is indexed at 1
+        {     
             $items[1] = trim(fgets(STDIN));  
-        } else {
-        
-        $items[] = trim(fgets(STDIN));
+        } 
+        else 
+        {
+            $items[] = trim(fgets(STDIN));
         }
-    } elseif ($input == 'R') {
+    } 
+    elseif ($input == 'R') 
+    {
         // Remove which item?
         echo 'Enter item number to remove: ';
         // Get array key
@@ -52,7 +59,8 @@ do {
         unset($items[0]);
     }
 // Exit when input is (Q)uit
-} while ($input != 'Q');
+} 
+while ($input != 'Q');
 
 // Say Goodbye!
 echo "Goodbye!\n";
