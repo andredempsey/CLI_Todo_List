@@ -19,7 +19,7 @@ function list_items($list)
     $list_output='';
     foreach ($list as $key => $listitem) 
     {
-        $list_output = $list_output . "[{$key}] {$listitem}\n";
+        $list_output = $list_output . "[".($key+1)."]" ." {$listitem}\n";
     }
     return $list_output;
 }
@@ -46,7 +46,7 @@ do
 {
     //display list
     echo list_items($items);
-    
+
     // Show the menu options
     echo '(N)ew item, (R)emove item, (Q)uit : ';
 
@@ -59,15 +59,8 @@ do
     {
         // Ask for entry
         echo 'Enter item: ';
-        // Add entry to list array
-        if(count($items)==0) //check array count and ensure first item is indexed at 1
-        {     
-            $items[1] = get_input();  
-        } 
-        else 
-        {
-            $items[] = get_input();
-        }
+        // Add entry to list arra
+        $items[] = get_input();
     } 
     elseif ($input == 'R') 
     {
@@ -76,10 +69,8 @@ do
         // Get array key
         $key = get_input();
         // Remove from array
-        unset($items[$key]);
+        unset($items[($key-1)]);
         $items=array_values($items);
-        array_unshift($items,"");
-        unset($items[0]);
     }
 // Exit when input is (Q)uit
 } 
