@@ -46,7 +46,7 @@ function get_input($upper = FALSE)
 function sort_menu($items)
 {
     echo "\n(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered : ";
-    $sort_input=strtoupper(trim(fgets(STDIN)));
+    $sort_input=get_input(TRUE);
     switch ($sort_input) 
     {
         case 'A':
