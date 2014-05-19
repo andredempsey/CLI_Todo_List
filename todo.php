@@ -10,7 +10,8 @@
 // When sort menu is opened, show the following options "(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered".
 // When a sort type is selected, order the TODO list accordingly and display the results.
 // When a new item is added to a TODO list, ask the user if they want to add it to the beginning or end of the list. Default to end if no input is given.
-
+// Allow a user to enter F at the main menu to remove the first item on the list. This feature will not be added to the menu, 
+// and will be a special feature that is only available to "power users". Also add a L option that grabs and removes the last item in the list.
 
 //add functions and refactor
 function list_items($list)
@@ -122,6 +123,14 @@ do
     elseif ($input=='S') 
     {
         $items=sort_menu($items);
+    }
+    elseif ($input=='F') 
+    {
+        array_shift($items);
+    }
+    elseif ($input=='L') 
+    {
+        array_pop($items);
     }
 // Exit when input is (Q)uit
 } 
