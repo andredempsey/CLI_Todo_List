@@ -2,9 +2,11 @@
 
 //This is the exercise for 
 //Building a Todo List
-//Date:  14 May 14
+//Date:  19 May 14
 //Name:  Andre Dempsey
 //Codeup Baddies
+
+// Add a (S)ort option to your menu. When it is chosen, it should call a function called sort_menu().
 
 //add functions and refactor
 function list_items($list)
@@ -38,9 +40,40 @@ function get_input($upper = FALSE)
         return (trim(fgets(STDIN)));
     }
 }
+
+
+function sort_menu($items)
+{
+    echo "\n(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered : ";
+    $sort_input=strtoupper(trim(fgets(STDIN)));
+    switch ($sort_input) 
+    {
+        case 'A':
+            asort($items);
+            return $items;
+            break;
+        case 'Z':
+            arsort($items);
+            return $items;
+            break;
+        case 'O':
+            ksort($items);
+            return $items;
+            break;
+        case 'R':
+            krsort($items);
+            return $items;
+            break;
+        default:
+            return $items;
+            break;
+    }
+
+}
+
 // Create array to hold list of todo items
 $items = array();
-
+$orig_items=array();
 // The loop!
 do 
 {
@@ -48,7 +81,14 @@ do
     echo list_items($items);
 
     // Show the menu options
-    echo '(N)ew item, (R)emove item, (Q)uit : ';
+    if (empty($items)) 
+    {
+        echo '(N)ew item, (Q)uit : ';
+    }
+    else
+    {
+        echo '(N)ew item, (R)emove item, (S)ort, (Q)uit : ';
+    }   
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
@@ -71,6 +111,11 @@ do
         // Remove from array
         unset($items[($key-1)]);
         $items=array_values($items);
+        $orig_items = $items;
+    }
+    elseif ($input=='S') 
+    {
+        $items=sort_menu($items);
     }
 // Exit when input is (Q)uit
 } 
