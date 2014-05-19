@@ -51,24 +51,18 @@ function sort_menu($items)
     {
         case 'A':
             asort($items);
-            return $items;
             break;
         case 'Z':
             arsort($items);
-            return $items;
             break;
         case 'O':
             ksort($items);
-            return $items;
             break;
         case 'R':
             krsort($items);
-            return $items;
-            break;
-        default:
-            return $items;
             break;
     }
+    return $items;
 
 }
 
@@ -111,7 +105,6 @@ do
         // Remove from array
         unset($items[($key-1)]);
         $items=array_values($items);
-        $orig_items = $items;
     }
     elseif ($input=='S') 
     {
