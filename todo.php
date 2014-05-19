@@ -7,6 +7,8 @@
 //Codeup Baddies
 
 // Add a (S)ort option to your menu. When it is chosen, it should call a function called sort_menu().
+// When sort menu is opened, show the following options "(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered".
+// When a sort type is selected, order the TODO list accordingly and display the results.
 
 //add functions and refactor
 function list_items($list)
@@ -41,7 +43,6 @@ function get_input($upper = FALSE)
     }
 }
 
-
 function sort_menu($items)
 {
     echo "\n(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered : ";
@@ -73,7 +74,6 @@ function sort_menu($items)
 
 // Create array to hold list of todo items
 $items = array();
-$orig_items=array();
 // The loop!
 do 
 {
