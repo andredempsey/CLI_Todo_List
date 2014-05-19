@@ -9,6 +9,8 @@
 // Add a (S)ort option to your menu. When it is chosen, it should call a function called sort_menu().
 // When sort menu is opened, show the following options "(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered".
 // When a sort type is selected, order the TODO list accordingly and display the results.
+// When a new item is added to a TODO list, ask the user if they want to add it to the beginning or end of the list. Default to end if no input is given.
+
 
 //add functions and refactor
 function list_items($list)
@@ -92,9 +94,19 @@ do
     if ($input == 'N') 
     {
         // Ask for entry
-        echo 'Enter item: ';
-        // Add entry to list arra
-        $items[] = get_input();
+        echo "Would you like to add the item to the (B)eginning or (E)nd of the list?";
+        switch (get_input(TRUE)) 
+        {
+            case 'B':
+                echo 'Enter item to add to the beginning: ';
+                array_unshift($items, get_input());
+                break;
+            default:
+                echo 'Enter item to add to the end: ';
+                // Add entry to list array
+                array_push($items, get_input());
+                break;
+        }
     } 
     elseif ($input == 'R') 
     {
