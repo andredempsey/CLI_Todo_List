@@ -8,6 +8,8 @@
 
 // 1.  Add a file menu option to the main menu in your TODO list app. In this file menu create a (O)pen file option. 
 // The user should be able to enter the path to a file to have it loaded.
+// 2.  Create a function that reads the file, and adds each line to the current TODO list. 
+// Loading data/list.txt should properly load the list. Be sure to fclose() the file when you are done reading it.
 
 //add functions and refactor
 function list_items($list)
@@ -62,7 +64,19 @@ function sort_menu($items)
             break;
     }
     return $items;
+}
 
+function readlist($filepathname, $target_array)
+{
+    $read_handle = fopen($filepathname, "r");
+    $listitems = fread($read_handle, filesize($filepathname));
+    $listitems_array = explode("\n", $listitems);
+    foreach ($listitems_array as $item) 
+    {
+        array_push($target_array, $item);
+    }
+    fclose($read_handle);
+    return $target_array;
 }
 
 // Create array to hold list of todo items
@@ -124,9 +138,11 @@ do
             array_pop($items);
             break;
         case 'O': //load list from file
-            array_pop($items);
-            $filepath = get_input();
+            //current menu configuration only allows loading from file if array is empty
+            echo "Source file: ";   
+            $filepath = get_input(false);
             echo "To do items to be loaded from $filepath\n";
+            $items= readlist($filepath,$items);
             break;
         default: // Exit when input is (Q)uit
             break;
