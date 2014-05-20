@@ -2,16 +2,12 @@
 
 //This is the exercise for 
 //Building a Todo List
-//Date:  19 May 14
+//Date:  20 May 14
 //Name:  Andre Dempsey
 //Codeup Baddies
 
-// Add a (S)ort option to your menu. When it is chosen, it should call a function called sort_menu().
-// When sort menu is opened, show the following options "(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered".
-// When a sort type is selected, order the TODO list accordingly and display the results.
-// When a new item is added to a TODO list, ask the user if they want to add it to the beginning or end of the list. Default to end if no input is given.
-// Allow a user to enter F at the main menu to remove the first item on the list. This feature will not be added to the menu, 
-// and will be a special feature that is only available to "power users". Also add a L option that grabs and removes the last item in the list.
+// 1.  Add a file menu option to the main menu in your TODO list app. In this file menu create a (O)pen file option. 
+// The user should be able to enter the path to a file to have it loaded.
 
 //add functions and refactor
 function list_items($list)
@@ -80,7 +76,7 @@ do
     // Show the menu options
     if (empty($items)) 
     {
-        echo '(N)ew item, (Q)uit : ';
+        echo '(N)ew item, (O)pen file, (Q)uit : ';
     }
     else
     {
@@ -90,49 +86,51 @@ do
     // Get the input from user
     // Use trim() to remove whitespace and newlines
     $input = get_input(TRUE);
-
-    // Check for actionable input
-    if ($input == 'N') 
+    switch ($input) 
     {
-        // Ask for entry
-        echo "Would you like to add the item to the (B)eginning or (E)nd of the list?";
-        switch (get_input(TRUE)) 
-        {
-            case 'B':
-                echo 'Enter item to add to the beginning: ';
-                array_unshift($items, get_input());
-                break;
-            default:
-                echo 'Enter item to add to the end: ';
-                // Add entry to list array
-                array_push($items, get_input());
-                break;
-        }
-    } 
-    elseif ($input == 'R') 
-    {
-        // Remove which item?
-        echo 'Enter item number to remove: ';
-        // Get array key
-        $key = get_input();
-        // Remove from array
-        unset($items[($key-1)]);
-        // $items=array_values($items);
-        $key++;
+        case 'N':
+            // Ask for entry
+            echo "Would you like to add the item to the (B)eginning or (E)nd of the list?";
+            switch (get_input(TRUE)) 
+            {
+                case 'B':
+                    echo 'Enter item to add to the beginning: ';
+                    array_unshift($items, get_input());
+                    break;
+                default:
+                    echo 'Enter item to add to the end: ';
+                    // Add entry to list array
+                    array_push($items, get_input());
+                    break;
+            }
+            break;        
+        case 'R': //remove item from list
+            // Remove which item?
+            echo 'Enter item number to remove: ';
+            // Get array key
+            $key = get_input();
+            // Remove from array
+            unset($items[($key-1)]);
+            // $items=array_values($items);
+            $key++;
+            break;        
+        case 'S': //sort list
+            $items=sort_menu($items);
+            break;        
+        case 'F':  //power user remove item to beginning of list
+            array_shift($items);
+            break;
+        case 'L': //power user remove item to end of list
+            array_pop($items);
+            break;
+        case 'O': //load list from file
+            array_pop($items);
+            $filepath = get_input();
+            echo "To do items to be loaded from $filepath\n";
+            break;
+        default: // Exit when input is (Q)uit
+            break;
     }
-    elseif ($input=='S') 
-    {
-        $items=sort_menu($items);
-    }
-    elseif ($input=='F') 
-    {
-        array_shift($items);
-    }
-    elseif ($input=='L') 
-    {
-        array_pop($items);
-    }
-// Exit when input is (Q)uit
 } 
 while ($input != 'Q');
 
