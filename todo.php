@@ -68,15 +68,18 @@ function sort_menu($items)
 
 function readlist($filepathname, $target_array)
 {
-    $read_handle = fopen($filepathname, "r");
-    $listitems = fread($read_handle, filesize($filepathname));
-    $listitems_array = explode("\n", $listitems);
-    foreach ($listitems_array as $item) 
+    if (is_readable($filepathname))
     {
-        array_push($target_array, $item);
+        $read_handle = fopen($filepathname, "r");
+        $listitems = fread($read_handle, filesize($filepathname));
+        $listitems_array = explode("\n", $listitems);
+        foreach ($listitems_array as $item) 
+        {
+            array_push($target_array, $item);
+        }
+        fclose($read_handle);
+        return $target_array;
     }
-    fclose($read_handle);
-    return $target_array;
 }
 
 // Create array to hold list of todo items
