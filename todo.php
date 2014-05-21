@@ -88,6 +88,15 @@ function readlist($filepathname, $target_array)
 
 function savelist($filepathname, $source_array)
 {
+    if (file_exists($filepathname)) 
+    {
+        echo "The file $filepathname exists.  Are you sure you want to overwrite it? ";
+        if (get_input(TRUE)=='N') 
+        {
+            return false;
+        }
+    } 
+    
     $write_handle = fopen($filepathname, "w");
     if (is_writable($filepathname))
     {
@@ -166,7 +175,7 @@ do
             $filepath = get_input(false);
             echo 'To do items to be loaded to ' . __DIR__ . '/' . $filepath;
             echo PHP_EOL;
-            echo savelist($filepath,$items)===True?'Successfully saved to ' . __DIR__ . '/' . $filepath :'There was a problem saving to ' . __DIR__ . '/' . $filepath;
+            echo savelist($filepath,$items)===True?'Successfully saved to ' . __DIR__ . '/' . $filepath :'The list was NOT saved to ' . __DIR__ . '/' . $filepath;
              echo PHP_EOL;
              break;
         case 'O': //load list from file
