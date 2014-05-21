@@ -101,7 +101,7 @@ do
     }
     else
     {
-        echo '(N)ew item, (R)emove item, (S)ort, (Q)uit : ';
+        echo '(N)ew item, (R)emove item, (S)ort, s(A)ve file, (Q)uit : ';
     }   
 
     // Get the input from user
@@ -143,6 +143,9 @@ do
             break;
         case 'L': //power user remove item to end of list
             array_pop($items);
+            break;
+        case 'A': //Save file
+            echo "You selected the save option.\n";
             break;
         case 'O': //load list from file
             //current menu configuration only allows loading from file if array is empty
