@@ -78,8 +78,12 @@ function readlist($filepathname, $target_array)
             array_push($target_array, $item);
         }
         fclose($read_handle);
-        return $target_array;
     }
+    else
+    {
+        echo "File not readable.  Please check the file name and path and try again. \n";
+    }
+        return $target_array;
 }
 
 // Create array to hold list of todo items
