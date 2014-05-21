@@ -71,7 +71,7 @@ function readlist($filepathname, $target_array)
     if (is_readable($filepathname))
     {
         $read_handle = fopen($filepathname, "r");
-        $listitems = fread($read_handle, filesize($filepathname));
+        $listitems = trim(fread($read_handle, filesize($filepathname)));
         $listitems_array = explode("\n", $listitems);
         foreach ($listitems_array as $item) 
         {
@@ -84,6 +84,23 @@ function readlist($filepathname, $target_array)
         echo "File not readable.  Please check the file name and path and try again. \n";
     }
         return $target_array;
+}
+
+function savelist($filepathname, $source_array)
+{
+    $write_handle = fopen($filepathname, "w");
+    if (is_writable($filepathname))
+    {
+        $listitems = implode("\n", $source_array)."\n";
+        fwrite($write_handle, $listitems);
+        fclose($write_handle);
+    }
+    else
+    {
+        echo "Invalid filename.  Please check the file name and path and try again. \n";
+        return false;
+    }
+        return true;
 }
 
 // Create array to hold list of todo items
@@ -145,8 +162,13 @@ do
             array_pop($items);
             break;
         case 'A': //Save file
-            echo "You selected the save option.\n";
-            break;
+            echo 'Where would you like to save (current path is '. __DIR__ .') the list: ';   
+            $filepath = get_input(false);
+            echo 'To do items to be loaded to ' . __DIR__ . '/' . $filepath;
+            echo PHP_EOL;
+            echo savelist($filepath,$items)===True?'Successfully saved to ' . __DIR__ . '/' . $filepath :'There was a problem saving to ' . __DIR__ . '/' . $filepath;
+             echo PHP_EOL;
+             break;
         case 'O': //load list from file
             //current menu configuration only allows loading from file if array is empty
             echo "Source file: ";   
